@@ -1,6 +1,6 @@
 #!/bin/bash
 echo "Compiling..."
-g++ main.cpp -o build -lraylib -lm -ldl -lGL -pthread
+g++ main.cpp player.h player.cpp -o build -lraylib -lm -ldl -lGL -pthread
 if [ $? -ne 0 ]; then
     echo "Compile failed! exiting..."
     exit 1

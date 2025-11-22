@@ -1,18 +1,12 @@
 #include "raylib.h"
+#include "player.h"
+#include <vector>
 
+//this is in preperation for ground tiles
+std::vector<std::vector<int>> tiles ={
+    {0,0,0},
 
-class Player{
-public:
-    Vector2 position;
-    float speed;
-    int size;
-
-    Player(float x, float y) : position{x, y}, speed(300.0f), size(50) {}
 };
-
-
-
-
 
 int main(){
     InitWindow(0,0,"Raylib Test");
@@ -33,27 +27,32 @@ int main(){
     while (!WindowShouldClose()){
         //get delta time every frame and resets velocity
         float deltaTime = GetFrameTime();
-        Vector2 velocity = {0.0f, 0.0f};
+        Vector2 velocity = {0,0};
 
         //check for keypresses
         if (IsKeyDown(KEY_RIGHT)) velocity.x = 1.0f;
         if (IsKeyDown(KEY_LEFT)) velocity.x = -1.0f;
-        if (IsKeyDown(KEY_DOWN)) velocity.y = 1.0f;
-        if (IsKeyDown(KEY_UP)) velocity.y = -1.0f;
 
-        //updates player position according to velocity speed and keeps it accurate to current frame
-        player.position.x += velocity.x * player.speed * deltaTime;
-        player.position.y += velocity.y * player.speed * deltaTime;
+        player.Move(velocity.x,velocity.y, deltaTime);
 
+        if (player.position.y < screenH-205){
+            player.canJump = false;
+            player.Fall(deltaTime);
+        }else{
+            player.acceleration = player.default_acceleration;
+            player.canJump = true;
+
+        }
 
         //draw what is on the screen
         BeginDrawing();
-        ClearBackground(BLACK);
+        ClearBackground(WHITE);
         
-        DrawTextureEx(playerTexture,player.position,0.0f, 5.0f,WHITE);
-
         //making a temporary ground rect
         DrawRectangle(0,screenH-100,screenW,100,GREEN);
+
+        //draw the player
+        DrawTextureEx(playerTexture,player.position,0.0f,player.size,WHITE);
 
         EndDrawing();
     }
