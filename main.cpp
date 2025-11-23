@@ -1,12 +1,8 @@
 #include "raylib.h"
 #include "player.h"
+#include "ground.h"
 #include <vector>
-
-//this is in preperation for ground tiles
-std::vector<std::vector<int>> tiles ={
-    {0,0,0},
-
-};
+#include <cstdio>
 
 int main(){
     InitWindow(0,0,"Raylib Test");
@@ -19,9 +15,10 @@ int main(){
 
     Player player(100.0f,200.0f);
 
+    Ground ground;
+
     //load images
     Texture2D playerTexture = LoadTexture("assets/player.png");
-
 
     //while running
     while (!WindowShouldClose()){
@@ -32,27 +29,38 @@ int main(){
         //check for keypresses
         if (IsKeyDown(KEY_RIGHT)) velocity.x = 1.0f;
         if (IsKeyDown(KEY_LEFT)) velocity.x = -1.0f;
+        if (IsKeyDown(KEY_UP)) player.acceleration = -500.0f;
+       
 
         player.Move(velocity.x,velocity.y, deltaTime);
 
-        if (player.position.y < screenH-205){
-            player.canJump = false;
-            player.Fall(deltaTime);
+        if (player.position.y <= screenH-200){
+            player.inair = true;
         }else{
-            player.acceleration = player.default_acceleration;
-            player.canJump = true;
-
+            player.inair = false;
+            player.position.y = screenH - 200;
+            player.acceleration = 0;
         }
+        player.Fall(deltaTime);
 
         //draw what is on the screen
         BeginDrawing();
         ClearBackground(WHITE);
+
+        //draw all the ground
+        ground.Draw();
         
         //making a temporary ground rect
         DrawRectangle(0,screenH-100,screenW,100,GREEN);
 
         //draw the player
         DrawTextureEx(playerTexture,player.position,0.0f,player.size,WHITE);
+
+
+        //debug UI
+        char debug_onground[30];
+        snprintf(debug_onground, sizeof(debug_onground), "inAir: %s", player.inair ? "true": "false");
+        DrawText(debug_onground, 10 , 10 ,40 , BLACK);
 
         EndDrawing();
     }
