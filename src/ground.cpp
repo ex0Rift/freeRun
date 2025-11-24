@@ -4,10 +4,10 @@
 Ground::Ground(){
     dirtTile = LoadTexture("assets/ground/dirt.png");
     groundScale = 4;
-    
+
     groundTiles.assign({
-        {1,1},
-        {1,0}
+        {1,1,1,1,1,1},
+        {1,1,1,1,1,1}
     });
 
 }

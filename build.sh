@@ -1,6 +1,12 @@
 #!/bin/bash
 echo "Compiling..."
-g++ main.cpp player.h player.cpp ground.h ground.cpp -o build -lraylib -lm -ldl -lGL -pthread
+g++ \
+    src/main.cpp \
+    src/player.cpp \
+    src/ground.cpp \
+    -I include \
+    -o build \
+    -lraylib -lm -ldl -lGL -pthread
 if [ $? -ne 0 ]; then
     echo "Compile failed! exiting..."
     exit 1
