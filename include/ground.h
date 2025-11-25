@@ -11,6 +11,7 @@ struct Result {
 class Ground{
 public:
     Texture2D dirtTile;
+    Texture2D grassTile;
     float groundScale;
     std::vector<std::vector<int>> groundTiles;
 

@@ -11,20 +11,21 @@ Player::Player(float x, float y){
 
 void Player::Move(float deltaTime){
     position.x += acceleration.x * deltaTime;
-    if (acceleration.x != 0.0f){
+    if (acceleration.x != -0.0f){
         if (acceleration.x < 0.0f){
-            acceleration.x += 20.0f;
-        }else acceleration.x -= 20.0f;
+            acceleration.x += 25.0f;
+        }else acceleration.x -= 25.0f;
     }
+    //if (acceleration.x > -10.0f && acceleration.x < 10.0f) acceleration.x = 0.0f;
 }
 
 void Player::Fall(float deltaTime){
     position.y += acceleration.y * deltaTime;
-    acceleration.y += 50.0f;
+    acceleration.y += 2000.0f * deltaTime;
 }
 
 void Player::Collide(Ground& ground){
-    Result col = ground.Collide((position.x+13*size/2),(position.y+16*size));
+    Result col = ground.Collide((position.x+14*size/2),(position.y+16*size));
         if (col.hit){
             inair = false;
             if (acceleration.y > 0.0f){
@@ -33,7 +34,7 @@ void Player::Collide(Ground& ground){
             }
         }else inair = true;
         //right collision
-        Result colRight = ground.Collide((position.x+14*size),position.y+16*size-1);
+        Result colRight = ground.Collide((position.x+18*size),position.y+16*size-1);
         if (colRight.hit){
             if (acceleration.x >= 0){
                 acceleration.x = 0.0f;
@@ -45,7 +46,7 @@ void Player::Collide(Ground& ground){
         if (colLeft.hit){
             if (acceleration.x <= 0){
                 acceleration.x = 0.0f;
-                position.x = colLeft.x*(32*ground.groundScale)+(30*ground.groundScale);
+                position.x = colLeft.x*(32*ground.groundScale)+(24*size);
             }
         }
 }

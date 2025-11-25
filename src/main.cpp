@@ -32,7 +32,7 @@ int main(){
 
         if (IsKeyDown(KEY_RIGHT)) player.acceleration.x += 30.0f;
         if (IsKeyDown(KEY_LEFT)) player.acceleration.x += -30.0f;
-        if (IsKeyDown(KEY_UP)) player.acceleration.y = -500.0f;
+        if (IsKeyDown(KEY_UP)) player.acceleration.y = -800.0f;
        
         //move is for x direction fall is for y direction
         player.Move(deltaTime);
