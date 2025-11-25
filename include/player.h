@@ -1,11 +1,11 @@
 #pragma once
 #include "raylib.h"
 #include "ground.h"
+#include "animation.h"
 #include <vector>
 
 class Player{
 public:
-    Texture2D standing_right;
     Vector2 position;
     int size;
     Vector2 acceleration;
@@ -13,6 +13,7 @@ public:
     bool inair;
     std::vector<int> frames;
     
+    Animation animation;
 
     Player(float x, float y);
     void Draw();

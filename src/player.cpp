@@ -3,9 +3,14 @@
 #include "raylib.h"
 #include "animation.h"
 
-Player::Player(float x, float y){
-    standing_right = LoadTexture("assets/player.png");
-    
+Player::Player(float x, float y)
+    : animation({//all frames for player are loaded here
+        LoadTexture("assets/player/player.png"),
+        LoadTexture("assets/player/player_left.png"),
+        LoadTexture("assets/player/player_right.png"),
+        LoadTexture("assets/player/player_jump.png")
+    })
+{
     position = {x,y};
     size = 5;
     default_acceleration = 10.0f;
@@ -14,19 +19,27 @@ Player::Player(float x, float y){
 }
 
 void Player::Draw(){
-    DrawTextureEx(standing_right,position,0.0f,size,WHITE);
+    DrawTextureEx(animation.currentFrame,position,0.0f,size,WHITE);
 }
 
 void Player::Move(float deltaTime){
     position.x += acceleration.x * deltaTime;
     if (acceleration.x > 29.0f || acceleration.x < -29.0f || inair){
         if (acceleration.x < 0.0f){
+            animation.ChangeFrame(1);
             acceleration.x += 25.0f;
-        }else acceleration.x -= 25.0f;
-    }else acceleration.x = 0.0f;
+        }else {
+            acceleration.x -= 25.0f; 
+            animation.ChangeFrame(2);
+        }
+    }else {
+        animation.ChangeFrame(0);
+        acceleration.x = 0.0f;
+    }
 }
 
 void Player::Fall(float deltaTime){
+    if (inair && (acceleration.x < 29.0f && acceleration.x > -29.0f)) animation.ChangeFrame(3);
     position.y += acceleration.y * deltaTime;
     acceleration.y += 3000.0f * deltaTime;
 }

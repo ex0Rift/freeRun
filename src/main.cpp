@@ -29,8 +29,8 @@ int main(){
         //check for keypresses
         if (IsKeyPressed(KEY_ZERO)) debug_mode = !debug_mode;
 
-        if (IsKeyDown(KEY_RIGHT)) player.acceleration.x += 30.0f;
-        if (IsKeyDown(KEY_LEFT)) player.acceleration.x += -30.0f;
+        if (IsKeyDown(KEY_RIGHT)) player.acceleration.x += 35.0f;
+        if (IsKeyDown(KEY_LEFT)) player.acceleration.x += -35.0f;
         if (IsKeyDown(KEY_UP)) if (!player.inair) player.acceleration.y = -1500.0f;
        
         //move is for x direction fall is for y direction
