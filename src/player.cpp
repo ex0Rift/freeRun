@@ -26,12 +26,13 @@ void Player::Move(float deltaTime){
     position.x += acceleration.x * deltaTime;
     if (acceleration.x > 29.0f || acceleration.x < -29.0f || inair){
         if (acceleration.x < 0.0f){
-            animation.ChangeFrame(1);
+            animation.InitAnimate({0,1}, 60);
             acceleration.x += 25.0f;
         }else {
             acceleration.x -= 25.0f; 
             animation.ChangeFrame(2);
         }
+        animation.Animate();
     }else {
         animation.ChangeFrame(0);
         acceleration.x = 0.0f;
