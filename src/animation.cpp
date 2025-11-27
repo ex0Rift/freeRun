@@ -16,8 +16,8 @@ void Animation::ChangeFrame(int change){
 
 void Animation::InitAnimate(std::vector<int> changeframes, float changeSpeed){
     speed = changeSpeed;
-    currentSpeedTime = speed;
-    currentFrameInUse = 0;
+    //currentSpeedTime = speed;
+    //currentFrameInUse = 0;
     useFrames = changeframes; 
     active = true;
 }
@@ -27,11 +27,12 @@ void Animation::Disable(){active = false;}
 void Animation::Animate(){
     if (active){
         if (currentSpeedTime == 0){
-            if (currentFrameInUse == useFrames.back()){
-                
-            }
-            
+            if (currentFrameInUse == useFrames.size()-1){
+                currentFrameInUse = 0;
+            }else currentFrameInUse ++;
 
+            currentFrame = states[useFrames[currentFrameInUse]];
+            
             currentSpeedTime = speed;
         }else currentSpeedTime -= 1;
         

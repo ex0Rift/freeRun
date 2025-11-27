@@ -7,7 +7,9 @@ Player::Player(float x, float y)
     : animation({//all frames for player are loaded here
         LoadTexture("assets/player/player.png"),
         LoadTexture("assets/player/player_left.png"),
+        LoadTexture("assets/player/player_left_walk.png"),
         LoadTexture("assets/player/player_right.png"),
+        LoadTexture("assets/player/player_right_walk.png"),
         LoadTexture("assets/player/player_jump.png")
     })
 {
@@ -26,15 +28,14 @@ void Player::Move(float deltaTime){
     position.x += acceleration.x * deltaTime;
     if (acceleration.x > 29.0f || acceleration.x < -29.0f || inair){
         if (acceleration.x < 0.0f){
-            animation.InitAnimate({0,1}, 60);
+            animation.InitAnimate({1,2}, 15);
             acceleration.x += 25.0f;
         }else {
+            animation.InitAnimate({3,4}, 15);
             acceleration.x -= 25.0f; 
-            animation.ChangeFrame(2);
         }
         animation.Animate();
     }else {
-        animation.ChangeFrame(0);
         acceleration.x = 0.0f;
     }
 }
