@@ -32,7 +32,10 @@ int main(){
         if (IsKeyDown(KEY_RIGHT)) player.acceleration.x += 35.0f;
         if (IsKeyDown(KEY_LEFT)) player.acceleration.x += -35.0f;
         if (IsKeyDown(KEY_UP)) if (!player.inair) player.acceleration.y = -1500.0f;
-       
+
+        if (IsKeyDown(KEY_D)) ground.Move(10.0f);//move map for debugging right
+        if (IsKeyDown(KEY_A)) ground.Move(-10.0f);//move map for debugging left
+
         //move is for x direction fall is for y direction
         player.Move(deltaTime);
         player.Fall(deltaTime);

@@ -41,9 +41,10 @@ void Player::Move(float deltaTime){
 }
 
 void Player::Fall(float deltaTime){
-    if (inair && (acceleration.x < 29.0f && acceleration.x > -29.0f)) animation.ChangeFrame(3);
+    if (inair && (acceleration.x < 29.0f && acceleration.x > -29.0f)) animation.ChangeFrame(5);
     position.y += acceleration.y * deltaTime;
     acceleration.y += 3000.0f * deltaTime;
+    if (!inair && acceleration.x == 0)animation.ChangeFrame(0);
 }
 
 void Player::Collide(Ground& ground){

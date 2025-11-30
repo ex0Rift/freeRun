@@ -6,6 +6,7 @@ Ground::Ground(){
     dirtTile = LoadTexture("assets/ground/dirt.png");
     grassTile = LoadTexture("assets/ground/grass.png");
     groundScale = 4;
+    position = {0,0};
 
     groundTiles.assign({
         {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
@@ -32,13 +33,18 @@ void Ground::Draw(){
                 float fi = static_cast<float>(i);
                 float fj = static_cast<float>(j);
 
-                if (groundTiles[i][j] == 1)DrawTextureEx(dirtTile,{fj*(32*groundScale),fi*(32*groundScale)},0.0f,groundScale,WHITE);
-                if (groundTiles[i][j] == 2)DrawTextureEx(grassTile,{fj*(32*groundScale),fi*(32*groundScale)},0.0f,groundScale,WHITE);
+                if (groundTiles[i][j] == 1)DrawTextureEx(dirtTile,{fj*(32*groundScale)+position.x,fi*(32*groundScale)+position.y},0.0f,groundScale,WHITE);
+                if (groundTiles[i][j] == 2)DrawTextureEx(grassTile,{fj*(32*groundScale)+position.x,fi*(32*groundScale)+position.y},0.0f,groundScale,WHITE);
 
                 
             }
         }
     }
+}
+
+void Ground::Move(float x, float y){
+    position.x += x;
+    position.y += y;
 }
 
 Result Ground::Collide(float px , float py){
