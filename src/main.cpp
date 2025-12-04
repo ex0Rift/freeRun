@@ -21,6 +21,13 @@ int main(){
 
     Ground ground;
 
+
+    //adding the camera
+    Camera2D camera =  {0};
+    camera.target = {player.position.x + player.size /2, player.position.y + player.size/2};
+    camera.offset = { screenW/2.0f, screenH/1.5f};
+    camera.zoom = 1.2f;
+
     //while running
     while (!WindowShouldClose()){
         //get delta time every frame and resets velocity
@@ -33,19 +40,21 @@ int main(){
         if (IsKeyDown(KEY_LEFT)) player.acceleration.x += -35.0f;
         if (IsKeyDown(KEY_UP)) if (!player.inair) player.acceleration.y = -1500.0f;
 
-        if (IsKeyDown(KEY_D)) ground.Move(10.0f);//move map for debugging right
-        if (IsKeyDown(KEY_A)) ground.Move(-10.0f);//move map for debugging left
-
         //move is for x direction fall is for y direction
         player.Move(deltaTime);
         player.Fall(deltaTime);
 
-        //vertical collision bottom
+        //the player collsion
         player.Collide(ground);
+
+        //sets the camera traget
+        camera.target = {player.position.x + player.size /2, player.position.y + player.size/2};
 
         //draw what is on the screen
         BeginDrawing();
         ClearBackground(SKY);
+
+        BeginMode2D(camera);
 
         //draw all the ground
         ground.Draw();
@@ -67,7 +76,7 @@ int main(){
         //draw the player
         player.Draw();
 
-
+        EndMode2D();
         EndDrawing();
     }
 

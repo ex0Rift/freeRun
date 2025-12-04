@@ -42,14 +42,9 @@ void Ground::Draw(){
     }
 }
 
-void Ground::Move(float x, float y){
-    position.x += x;
-    position.y += y;
-}
-
 Result Ground::Collide(float px , float py){
-    int tileX = std::floor(px / (32*groundScale));
-    int tileY = std::floor(py / (32*groundScale));
+    int tileX = std::floor(px / (32*(groundScale-position.x)));
+    int tileY = std::floor(py / (32*(groundScale-position.y)));
 
     if (groundTiles[tileY][tileX] != 0){
         return {true ,tileX,tileY};

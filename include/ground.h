@@ -18,6 +18,5 @@ public:
 
     Ground();
     void Draw();
-    void Move(float x = 0.0f, float y = 0.0f);
     Result Collide(float px, float py);
 };
