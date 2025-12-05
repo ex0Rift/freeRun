@@ -19,6 +19,7 @@ Player::Player(float x, float y)
     acceleration = {0.0f,default_acceleration};
     inair = false;
     currentChunk = 0;
+    lastChunk = currentChunk;
 }
 
 void Player::Draw(){

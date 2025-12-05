@@ -17,7 +17,7 @@ int main(){
 
     const Color SKY = {139, 185, 201, 255};
 
-    Player player(100.0f,1000.0f);
+    Player player(3000.0f,1000.0f);
 
     Ground ground;
 
@@ -32,6 +32,10 @@ int main(){
         //get delta time every frame and resets velocity
         float deltaTime = GetFrameTime();
 
+        //gets the current chunk the player is in (stored in player.currentChunk)
+        player.GetChunk(ground.groundScale);
+        if (player.lastChunk < player.currentChunk) ground.genChunk();
+
         //check for keypresses
         if (IsKeyPressed(KEY_ZERO)) debug_mode = !debug_mode;
 
@@ -42,21 +46,18 @@ int main(){
         if (IsKeyDown(KEY_EQUAL)) camera.zoom += 0.1f;
         if (IsKeyDown(KEY_MINUS)) camera.zoom -= 0.1f;
 
-        //for testing gen a new chunk with this key
-        if (IsKeyPressed(KEY_NINE)) ground.genChunk();
-
         //move is for x direction fall is for y direction
         player.Move(deltaTime);
         //player.Fall(deltaTime);
-
-        //gets the current chunk the player is in
-        player.GetChunk(ground.groundScale);
 
         //the player collsion
         //player.Collide(ground);
 
         //sets the camera target to the new player position
         camera.target = {player.position.x + (player.size*16) /2, player.position.y + (player.size*16)/2};
+
+        //changes last chunk to the current chunk after everything
+        player.lastChunk = player.currentChunk;
 
         //draw what is on the screen
         BeginDrawing();

@@ -9,6 +9,7 @@ public:
     Vector2 position;
     int size;
     int currentChunk;
+    int lastChunk;
     Vector2 acceleration;
     float default_acceleration;
     bool inair;
