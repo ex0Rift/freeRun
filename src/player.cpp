@@ -64,7 +64,7 @@ void Player::Collide(Ground& ground){
         if (colRight.hit){
             if (acceleration.x >= 0){
                 acceleration.x = 0.0f;
-                position.x = colRight.x*(32*ground.groundScale)-(14*size);
+                //position.x = (colRight.x+(6*currentChunk))*(32*ground.groundScale)-(14*size);
             }
         }
         //left collision
@@ -72,7 +72,7 @@ void Player::Collide(Ground& ground){
         if (colLeft.hit){
             if (acceleration.x <= 0){
                 acceleration.x = 0.0f;
-                position.x = colLeft.x*(32*ground.groundScale)+(25*size);
+                //position.x = colLeft.x*(32*ground.groundScale)+(25*size);
             }
         }
 }

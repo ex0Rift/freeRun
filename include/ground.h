@@ -22,6 +22,6 @@ public:
 
     Ground();
     void Draw();
-    Result Collide(int pcX, float pcXF , float py);
+    Result Collide(int c, float cf ,float py);
     void genChunk(bool startMode = false);
 };

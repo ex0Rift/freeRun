@@ -37,11 +37,11 @@ void Ground::Draw(){
     }
 }
 
-Result Ground::Collide(int pcX, float pcXF , float py){
-    int tileX = static_cast<int>((pcXF - pcX) * 6.0f);
+Result Ground::Collide(int c, float cf ,float py){
+    int tileX = static_cast<int>((cf - c) * 6.0f);
     int tileY = std::floor(py / (32*(groundScale-position.y)));
 
-    if (chunksInUse[pcX][tileY][tileX] != 0){
+    if (chunksInUse[2][tileY][tileX] != 0){
         return {true ,tileX,tileY};
     }else return {false ,tileX,tileY};
 }
@@ -55,5 +55,4 @@ void Ground::genChunk(bool startMode){
         chunkDistance ++;
     }
     chunksInUse.push_back(chunks::array[dist(gen)]);
-
 }

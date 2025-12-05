@@ -17,7 +17,7 @@ int main(){
 
     const Color SKY = {139, 185, 201, 255};
 
-    Player player(3000.0f,1000.0f);
+    Player player(768.0f*3.0f,1000.0f);
 
     Ground ground;
 
