@@ -12,8 +12,8 @@ Ground::Ground(){
     chunkDistance = 0;
 
 
-    for (int i = 0; i < 8; i++){
-        genChunk(true);
+    for (int i = 0; i < 12; i++){
+        genChunk(1,true);
     }
 }
 
@@ -48,14 +48,20 @@ Result Ground::Collide(float px, float py, float chunkX ){
     }else return {false ,tileX,tileY};
 }
 
-void Ground::genChunk(bool startMode){
+void Ground::genChunk(int direction, bool startMode){
     std::mt19937 gen(seed());
     std::uniform_int_distribution<> dist(0, chunks::array.size() -1);
 
-    if (!startMode){
-        chunksInUse.erase(chunksInUse.begin());
-        chunkDistance ++;
+    if (direction == 1){
+        if (!startMode){
+            chunksInUse.erase(chunksInUse.begin());
+            chunkDistance ++;
+        }
+        chunksInUse.push_back(chunks::array[dist(gen)]);
+    }else{
+        chunksInUse.erase(chunksInUse.end()-1);
+        chunkDistance--;
+        chunksInUse.insert(chunksInUse.begin(), chunks::array[dist(gen)]);
     }
-    chunksInUse.push_back(chunks::array[dist(gen)]);
 
 }

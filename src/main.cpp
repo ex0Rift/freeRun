@@ -24,8 +24,8 @@ int main(){
     //adding the camera
     Camera2D camera =  {0};
     camera.target = {player.position.x + (player.size*16)/2, player.position.y + (player.size*16)/2};
-    camera.offset = { screenW/2.0f, screenH/2.0f};
-    camera.zoom = 1.2f;
+    camera.offset = { screenW/6.0f, screenH/2.0f};
+    camera.zoom = 0.7f;
 
     //while running
     while (!WindowShouldClose()){
@@ -34,7 +34,8 @@ int main(){
 
         //gets the current chunk the player is in (stored in player.currentChunk)
         player.GetChunk(ground.groundScale);
-        if (player.lastChunk < player.currentChunk) ground.genChunk();
+        if (player.lastChunk < player.currentChunk) ground.genChunk(1);
+        if (player.lastChunk > player.currentChunk) ground.genChunk(0);
 
         //check for keypresses
         if (IsKeyPressed(KEY_ZERO)) debug_mode = !debug_mode;

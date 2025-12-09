@@ -51,7 +51,7 @@ void Player::Fall(float deltaTime){
 }
 
 void Player::Collide(Ground& ground){
-    Result col = ground.Collide((position.x+14*size/2),(position.y+16*size),currentChunkF);
+    Result col = ground.Collide((position.x+14*size/2),(position.y+16*size),(position.x+size*16/2) / (32 * ground.groundScale * 6));
         if (col.hit){
             inair = false;
             if (acceleration.y > 0.0f){
