@@ -43,6 +43,7 @@ int main(){
         if (IsKeyDown(KEY_D)) player.acceleration.x += 45.0f;
         if (IsKeyDown(KEY_A) && player.currentChunk > 1) player.acceleration.x += -55.0f;
         if (IsKeyDown(KEY_SPACE)) if (!player.inair) player.acceleration.y = -1500.0f;
+        if (IsKeyDown(KEY_S)) if (player.inair) player.acceleration.y = 2000.0f;
 
         if (IsKeyDown(KEY_EQUAL)) camera.zoom += 0.1f;
         if (IsKeyDown(KEY_MINUS)) camera.zoom -= 0.1f;
@@ -77,14 +78,17 @@ int main(){
         //Draw The game UI
 
         //speedometer
-        DrawRectangle(100,screenH-screenH/10,screenW-200,50,Color{0,0,0,100});
-        DrawRectangle(250,screenH-screenH/11,player.acceleration.x/5,20,GREEN);
-
-
+        DrawRectangle(100,screenH-screenH/11,screenW-200,50,Color{0,0,0,100});
+        DrawRectangle(250,screenH-screenH/11+15,player.acceleration.x/5,20,Color{0,static_cast<unsigned char>(player.acceleration.x/30),0,255});
         char speedometerText[30];
-        snprintf(speedometerText, sizeof(speedometerText), "[%d]", static_cast<int>(player.acceleration.x));
-        DrawText(speedometerText, 110, screenH-screenH/10.5 ,40 , WHITE);
+        snprintf(speedometerText, sizeof(speedometerText), "[%d]", player.acceleration.x > 0 ? static_cast<int>(player.acceleration.x): 0);
+        DrawText(speedometerText, 110, screenH-screenH/11+5 ,40 , WHITE);
 
+        //HighScore
+        DrawRectangle(100, screenH-screenH/11-75,400,50,Color{0,0,0,100});
+        char HighScoreText[30];
+        snprintf(HighScoreText, sizeof(HighScoreText), "HighScore: %d", player.highSpeed);
+        DrawText(HighScoreText, 110, screenH-screenH/11-70 ,40 , WHITE);
 
 
         // draw the debug stuff AFTER the camera is off so it draws to a set place on the screen

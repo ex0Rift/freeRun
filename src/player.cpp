@@ -22,6 +22,7 @@ Player::Player(float x, float y)
     lastChunk = currentChunk;
     currentChunkF = 0.0f;
     jumpsleft = 2;
+    highSpeed = 0;
 }
 
 void Player::Draw(){
@@ -42,6 +43,7 @@ void Player::Move(float deltaTime){
     }else {
         acceleration.x = 0.0f;
     }
+    if (acceleration.x > highSpeed) highSpeed = static_cast<int>(acceleration.x);
 }
 
 void Player::Fall(float deltaTime){

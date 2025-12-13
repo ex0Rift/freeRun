@@ -15,6 +15,7 @@ public:
     float default_acceleration;
     bool inair;
     int jumpsleft;
+    int highSpeed;
     std::vector<int> frames;
     
     Animation animation;
