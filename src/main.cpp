@@ -1,3 +1,6 @@
+//web specific
+#include <emscripten/emscripten.h>
+
 #include "raylib.h"
 #include "player.h"
 #include "ground.h"
@@ -6,30 +9,19 @@
 
 bool debug_mode = false;
 
-int main(){
-    InitWindow(0,0,"Raylib Test");
-    ToggleFullscreen();
-    SetTargetFPS(60);
+Player* p;
+Ground* g;
 
-    //gets the screen dimentions
-    int screenW = GetScreenWidth();
-    int screenH = GetScreenHeight();
+int screenW, screenH;
+const Color SKY = {139, 185, 201, 255};
+Camera2D camera = {0};
 
-    const Color SKY = {139, 185, 201, 255};
 
-    Player player(3000.0f,0.0f);
+void UpdateFrame(){
+        Player& player = *p;
+        Ground& ground = *g;
 
-    Ground ground;
 
-    //adding the camera
-    Camera2D camera =  {0};
-    camera.target = {player.position.x + (player.size*16)/2, player.position.y + (player.size*16)/2};
-    camera.offset = { screenW/6.0f, screenH/2.0f};
-    camera.zoom = 0.65f;
-
-    //while running
-    while (!WindowShouldClose()){
-        //get delta time every frame and resets velocity
         float deltaTime = GetFrameTime();
 
         //gets the current chunk the player is in (stored in player.currentChunk)
@@ -45,8 +37,9 @@ int main(){
         if (IsKeyDown(KEY_SPACE)) if (!player.inair) player.acceleration.y = -1500.0f;
         if (IsKeyDown(KEY_S)) if (player.inair) player.acceleration.y = 2000.0f;
 
-        if (IsKeyDown(KEY_EQUAL)) camera.zoom += 0.1f;
-        if (IsKeyDown(KEY_MINUS)) camera.zoom -= 0.1f;
+        //++++ UNCOMMENT TO BE ABLE TO CHANGE ZOOM OF CAMERA++++
+        //if (IsKeyDown(KEY_EQUAL)) camera.zoom += 0.1f;
+        //if (IsKeyDown(KEY_MINUS)) camera.zoom -= 0.1f;
 
         //move is for x direction fall is for y direction
         player.Move(deltaTime);
@@ -119,8 +112,31 @@ int main(){
 
         //END OF THE DRAWING
         EndDrawing();
-    }
+
+}
+
+int main(){
+    InitWindow(1080,720,"Raylib Test");
+    SetTargetFPS(60);
+
+    screenW = GetScreenWidth();
+    screenH = GetScreenHeight();
+
+
+    p = new Player(3000.0f, 0.0f);
+    g = new Ground();
+
+    //adding the camera
+    camera.target = {p->position.x + (p->size*16)/2, p->position.y + (p->size*16)/2};
+    camera.offset = { screenW/6.0f, screenH/2.0f};
+    camera.zoom = 0.65f;
+
+    //start the main loop
+    emscripten_set_main_loop(UpdateFrame, 0,1);
 
     CloseWindow();
-    return 0;
+    
+    delete p;
+    delete g;
 }
+
