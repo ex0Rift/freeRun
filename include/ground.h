@@ -5,8 +5,8 @@
 
 struct Result {
     bool hit;
-    float x;
-    float y;
+    int x;
+    int y;
 };
 
 class Ground{
