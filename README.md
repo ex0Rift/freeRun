@@ -1,3 +1,9 @@
+# THIS IS THE WEB BRANCH
+
+bare in mind this is the code base changed to work and compile on web including sorce files and it's edited code of the main file to work in it's enviroment
+
+
+
 # FreeRun
 
 FreeRun is a personal project of mine where eventually the end product will be a polished 2D ininite platformer.
@@ -20,36 +26,9 @@ Run, jump and speed! this game is a high speed intense experience to beat your h
 
 <img width="2252" height="1046" alt="image" src="https://github.com/user-attachments/assets/d91c5e59-20be-4dfb-8c0f-c7e57e5509d5" />
 
+## building yourslef
 
-## If you would like to build it yourself
-
-for linux run in the root of the directory:
-
-```
-
-  ./build.sh
-
-```
-
-This file simply compiles the code using g++ and will run the output file.
-
-<br>
-
-## Dependancies
-
-This game uses **raylib** and is compiled using **g++**.
-
-### to install
-
-(assuming your on a debian distro of linux which uses apt)
-
-```
-
-  sudo apt install g++
-  sudo apt install libraylib-dev
-
-```
-
+checkout main branch to do so
 
 ## past stages of development
 <hr>
