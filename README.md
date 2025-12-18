@@ -46,7 +46,8 @@ This game uses **raylib** and is compiled using **g++**. OpenGL devlopment lirar
 ```
 
   sudo apt install g++
-  sudo apt install libraylib-dev libgl1-mesa-dev
+  sudo add-apt-repository ppa:texus/raylib
+  sudo apt install libraylib5-dev libgl1-mesa-dev
 
 ```
 
