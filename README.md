@@ -37,7 +37,7 @@ This file simply compiles the code using g++ and will run the output file.
 
 ## Dependancies
 
-This game uses **raylib** and is compiled using **g++**.
+This game uses **raylib** and is compiled using **g++**. OpenGL devlopment liraries are required.
 
 ### to install
 
@@ -46,7 +46,7 @@ This game uses **raylib** and is compiled using **g++**.
 ```
 
   sudo apt install g++
-  sudo apt install libraylib-dev
+  sudo apt install libraylib-dev libgl1-mesa-dev
 
 ```
 
